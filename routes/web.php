@@ -27,15 +27,11 @@ Route::get('/', function (Telegram $telegram) {
                     'text' => 'button2',
                     'callback_data' => '2'
                 ],
-                [
-                    'text' => 'button3',
-                    'callback_data' => '3'
-                ],
             ],
             [
                 [
                     'text' => 'button4',
-                    'callback_data' => ''
+                    'callback_data' => '3'
                 ],
             ]
         ]
