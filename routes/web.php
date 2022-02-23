@@ -49,11 +49,6 @@ Route::get('/', function (Telegram $telegram) {
 
 });
 
-Route::get('/setWebhook', function (Telegram $telegram){
-    $http = Http::get('https://api.telegram.org/bot5250999010:AAHDVHvKA_0AeI6zmXYUw_7453NsmbAJHZ8/setWebhook?url=https://artel.inadvance.uz/webhook');
-    dd(json_decode($http->body()));
-});
-
 Route::get('/download', function (){
    return response()->download(public_path('artel.jpg'));
 });
