@@ -19,7 +19,7 @@ use App\Helpers\Telegram;
 Route::get('/', function (Telegram $telegram) {
 
     $buttons = [
-        'inline_keyboard' => [
+        'keyboard' => [
             [
                 [
                     'text' => 'button1',
@@ -29,14 +29,9 @@ Route::get('/', function (Telegram $telegram) {
                     'text' => 'button2',
                     'callback_data' => '2'
                 ],
-            ],
-            [
-                [
-                    'text' => 'button4',
-                    'callback_data' => '3'
-                ],
             ]
-        ]
+        ],
+        'resize_keyboard' => true
     ];
 
     $sendMessage = $telegram->sendButtons(685039285, 'Logo of the company!', json_encode($buttons));

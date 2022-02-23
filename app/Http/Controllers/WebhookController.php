@@ -10,6 +10,6 @@ use Illuminate\Support\Facades\Log;
 class WebhookController extends Controller
 {
     public function index(Request $request){
-        Log::debug($request->all());
+        Log::debug(json_decode($request->all()));
     }
 }
