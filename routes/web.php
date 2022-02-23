@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Helpers\Telegram;
 
@@ -48,10 +49,19 @@ Route::get('/', function (Telegram $telegram) {
 
 });
 
+Route::get('/setWebhook', function (Telegram $telegram){
+    $http = Http::get('https://api.telegram.org/bot5250999010:AAHDVHvKA_0AeI6zmXYUw_7453NsmbAJHZ8/setWebhook?url=https://artel.inadvance.uz/webhook');
+    dd(json_decode($http->body()));
+});
+
 Route::get('/download', function (){
    return response()->download(public_path('artel.jpg'));
 });
 
 Route::get('/artisan', function(){
    phpinfo();
+});
+
+Route::post('/webhook', function (){
+   return response()->json(true, 200);
 });
