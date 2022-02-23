@@ -62,6 +62,4 @@ Route::get('/artisan', function(){
    phpinfo();
 });
 
-Route::post('/webhook', function (){
-   return response()->json(true, 200);
-});
+Route::post('/webhook', [App\Http\Controllers\WebhookController::class, 'index']);
