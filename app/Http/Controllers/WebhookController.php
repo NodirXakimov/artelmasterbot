@@ -30,6 +30,7 @@ class WebhookController extends Controller
             $chat = new Chat(['chat_id' => $chat_id]);
             $telegram->sendButtons($chat->chat_id, '', json_encode($buttons));
         }
+        Log::debug(json_encode($chat_id));
 //        if ($data == '/start'){
 //            $telegram->sendButtons($request->input('message')['from']['id'], '', json_encode($buttons));
 //        } else {
