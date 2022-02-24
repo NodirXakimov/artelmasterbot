@@ -17,24 +17,24 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         //
     ];
-//    protected $telegram;
-//
-//    public function __construct(Container $container, Telegram $telegram)
-//    {
-//        parent::__construct($container);
-//        $this->telegram = $telegram;
-//    }
-//
-//
-//    public function report(Throwable $e)
-//    {
-//        $data = [
-//            'description' => $e->getMessage(),
-//            'file' => $e->getFile(),
-//            'line' => $e->getLine(),
-//        ];
-//        $this->telegram->sendMessage(env('REPORT_TELEGRAM_ID'), (string)view('report', $data));
-//    }
+    protected $telegram;
+
+    public function __construct(Container $container, Telegram $telegram)
+    {
+        parent::__construct($container);
+        $this->telegram = $telegram;
+    }
+
+
+    public function report(Throwable $e)
+    {
+        $data = [
+            'description' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ];
+        $this->telegram->sendMessage(env('REPORT_TELEGRAM_ID'), (string)view('report', $data));
+    }
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
