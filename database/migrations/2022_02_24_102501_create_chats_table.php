@@ -17,6 +17,7 @@ class CreateChatsTable extends Migration
             $table->id();
             $table->string('chat_id');
             $table->integer('state')->default(0);
+            $table->timestamps();
         });
     }
 

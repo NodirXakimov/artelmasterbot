@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Telegram;
+use App\Models\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -22,11 +23,17 @@ class WebhookController extends Controller
             ],
             'resize_keyboard' => true
         ];
-        $data = $request->input('message')['text'];
-        if ($data == '/start'){
-            $telegram->sendButtons($request->input('message')['from']['id'], '', json_encode($buttons));
-        } else {
-            $telegram->sendButtons($request->input('message')['from']['id'], 'Tashqi blok seriya raqamini kiriting', json_encode($buttons));
+        $chat_id = $request->input('message')['chat']['id'];
+        $chat = Chat::where('chat_id', '=', $chat_id)->first();
+        if ($chat === null)
+        {
+            $chat = new Chat(['chat_id' => $chat_id]);
+            $telegram->sendButtons($chat->chat_id, '', json_encode($buttons));
         }
+//        if ($data == '/start'){
+//            $telegram->sendButtons($request->input('message')['from']['id'], '', json_encode($buttons));
+//        } else {
+//            $telegram->sendButtons($request->input('message')['from']['id'], 'Tashqi blok seriya raqamini kiriting', json_encode($buttons));
+//        }
     }
 }
