@@ -22,13 +22,9 @@ Route::get('/', function (Telegram $telegram) {
         'keyboard' => [
             [
                 [
-                    'text' => 'button1',
+                    'text' => 'Bloklarning bir biriga mosligini tekshirish',
                     'callback_data' => '1'
-                ],
-                [
-                    'text' => 'button2',
-                    'callback_data' => '2'
-                ],
+                ]
             ]
         ],
         'resize_keyboard' => true
@@ -38,9 +34,9 @@ Route::get('/', function (Telegram $telegram) {
 //    $sendMessage = json_decode($sendMessage);
 //    dd($sendMessage);
 
-    $sendMessage = $telegram->sendMessage(685039285, 'Logo of the company!');
+//    $sendMessage = $telegram->sendMessage(685039285, 'Logo of the company!');
     $sendMessage = json_decode($sendMessage);
-    $telegram->sendDocument(685039285, 'artel.jpg', $sendMessage->result->message_id);
+//    $telegram->sendDocument(685039285, 'artel.jpg', $sendMessage->result->message_id);
 
 });
 
