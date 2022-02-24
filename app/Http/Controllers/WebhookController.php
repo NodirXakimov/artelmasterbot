@@ -24,7 +24,7 @@ class WebhookController extends Controller
         ];
         $data = $request->input('message')['text'];
         if ($data == '/start'){
-            $telegram->sendButtons($request->input('message')['from']['id'], 'Ichki blok seriya raqamini kiriting', json_encode($buttons));
+            $telegram->sendButtons($request->input('message')['from']['id'], '', json_encode($buttons));
         } else {
             $telegram->sendButtons($request->input('message')['from']['id'], 'Tashqi blok seriya raqamini kiriting', json_encode($buttons));
         }

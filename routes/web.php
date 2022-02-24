@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 use App\Helpers\Telegram;
 
 /*
@@ -31,12 +31,6 @@ Route::get('/', function (Telegram $telegram) {
     ];
 
     $sendMessage = $telegram->sendButtons(685039285, 'Logo of the company!', json_encode($buttons));
-//    $sendMessage = json_decode($sendMessage);
-//    dd($sendMessage);
-
-//    $sendMessage = $telegram->sendMessage(685039285, 'Logo of the company!');
-    $sendMessage = json_decode($sendMessage);
-//    $telegram->sendDocument(685039285, 'artel.jpg', $sendMessage->result->message_id);
 
 });
 
