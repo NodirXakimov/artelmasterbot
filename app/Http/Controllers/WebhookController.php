@@ -28,6 +28,7 @@ class WebhookController extends Controller
         if ($chat === null)
         {
             $chat = new Chat(['chat_id' => $chat_id]);
+            $chat->save();
             $telegram->sendButtons($chat->chat_id, '', json_encode($buttons));
         }
         Log::debug(json_encode($chat_id));
