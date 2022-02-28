@@ -18,7 +18,7 @@ class Telegram
         $this->bot = $bot;
     }
 
-    public function sendMessage($chat_id, $message)
+    public function sendMessage($chat_id, $message): \Illuminate\Http\Client\Response
     {
         return $this->http::post(self::URL.$this->bot.'/sendMessage', [
             'chat_id' => $chat_id,
@@ -36,7 +36,7 @@ class Telegram
         ]);
     }
 
-    public function sendButtons($chat_id, $message, $button)
+    public function sendButtons($chat_id, $message, $button): \Illuminate\Http\Client\Response
     {
         return $this->http::post(self::URL.$this->bot.'/sendMessage', [
             'chat_id' => $chat_id,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Outer;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
@@ -15,6 +16,7 @@ use App\Helpers\Telegram;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/', [App\Http\Controllers\WebhookController::class, 'index']);
 
 Route::get('/', function (Telegram $telegram) {
 
@@ -33,7 +35,12 @@ Route::get('/', function (Telegram $telegram) {
     $sendMessage = $telegram->sendButtons(685039285, 'Logo of the company!', json_encode($buttons));
 
 });
-
+Route::get('/test', function (){
+   $outer = Outer::where('id', '=', 1)->first();
+   return $outer->inners->contains(function ($key, $value){
+       return $key->seria == "111DAPAA";
+   });
+});
 Route::get('/download', function (){
    return response()->download(public_path('artel.jpg'));
 });

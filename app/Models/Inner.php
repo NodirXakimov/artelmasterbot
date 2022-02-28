@@ -9,8 +9,9 @@ class Inner extends Model
 {
     use HasFactory;
     protected $fillable = ['seria', 'outer_id'];
-    public function outer()
+
+    public function outers()
     {
-        return $this->belongsTo(Outer::class);
+        return $this->belongsToMany(Outer::class);
     }
 }

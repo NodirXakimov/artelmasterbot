@@ -10,8 +10,8 @@ class Outer extends Model
     use HasFactory;
     protected $fillable = ['seria'];
 
-    public function inner()
+    public function inners()
     {
-        return $this->hasMany(Inner::class);
+        return $this->belongsToMany(Inner::class);
     }
 }
