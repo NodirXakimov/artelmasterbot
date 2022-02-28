@@ -15,7 +15,6 @@ class CreateInnersTable extends Migration
     {
         Schema::create('inners', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('outer_id')->constrained();
             $table->string('seria')->unique();
             $table->timestamps();
         });

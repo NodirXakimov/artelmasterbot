@@ -36,10 +36,11 @@ Route::get('/', function (Telegram $telegram) {
 
 });
 Route::get('/test', function (){
-   $outer = Outer::where('id', '=', 1)->first();
-   return $outer->inners->contains(function ($key, $value){
-       return $key->seria == "111DAPAA";
-   });
+   $outer = Outer::find(1);
+   return $outer->inners;
+//   return $outer->inners->contains(function ($key, $value){
+//       return $key->seria == "111DAPAA";
+//   });
 });
 Route::get('/download', function (){
    return response()->download(public_path('artel.jpg'));

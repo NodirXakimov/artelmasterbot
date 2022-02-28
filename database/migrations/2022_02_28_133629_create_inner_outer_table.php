@@ -15,7 +15,7 @@ class CreateInnerOuterTable extends Migration
     {
         Schema::create('inner_outer', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('inner_id');
+            $table->foreignId('inner_id');
             $table->unsignedInteger('outer_id');
             $table->timestamps();
         });

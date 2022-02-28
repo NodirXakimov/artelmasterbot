@@ -17,13 +17,13 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         //
     ];
-//    protected $telegram;
-//
-//    public function __construct(Container $container, Telegram $telegram)
-//    {
-//        parent::__construct($container);
-//        $this->telegram = $telegram;
-//    }
+    protected $telegram;
+
+    public function __construct(Container $container, Telegram $telegram)
+    {
+        parent::__construct($container);
+        $this->telegram = $telegram;
+    }
 
 
     public function report(Throwable $e)
