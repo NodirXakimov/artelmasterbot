@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class WebhookController extends Controller
 {
     public function index(Request $request, Telegram $telegram){
-        Log::debug(json_encode($request->all()));
+//        Log::debug(json_encode($request->all()));
         $buttons = [
             'keyboard' => [
                 [
