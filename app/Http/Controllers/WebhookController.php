@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Telegram;
-use App\Models\Chat;
-use App\Models\Inner;
-use App\Models\Outer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use App\Helpers\Telegram;
+use App\Models\Outer;
+use App\Models\Inner;
+use App\Models\Chat;
 
 
 class WebhookController extends Controller
@@ -23,7 +23,7 @@ class WebhookController extends Controller
                 ],
                 [
                     [
-                        'text' => "📑 Botdan foydalanish bo'yicha yo'riqnoma",
+                        'text' => "📑 Yo'riqnoma",
                     ]
                 ]
             ],
@@ -63,7 +63,7 @@ class WebhookController extends Controller
                 $chat->state = 1;
                 $chat->save();
                 break;
-            case "1":
+            case "1":   // Requested with outer
                 if($request->input('message')['text'] == "✅ Bloklarning bir biriga mosligini tekshirish") {
                     $telegram->sendButtons($chat->chat_id, "<b>Tashqi</b> blok seriya raqamining ilk 8 ta belgisini kiriting:", json_encode($goToMainKeyboard));
                     $chat->state = 2;
@@ -72,7 +72,7 @@ class WebhookController extends Controller
                     $telegram->sendButtons($chat->chat_id, "🧾 Ma'lumot olish uchun quyidagi tugmani bosing", json_encode($buttons));
                 }
                 break;
-            case "2":   // Requested
+            case "2":   // Requested with inner
                 if (Outer::where('seria', '=', $request->input('message')['text'])->exists()) {
                     $chat->last_sent_message = $request->input('message')['text'];
                     $chat->state = '3';
@@ -82,12 +82,12 @@ class WebhookController extends Controller
                     $telegram->sendButtons($chat->chat_id, "⚠ Iltimos tashqi blok seriya raqamining ilk 8 ta belgisini <b>to'g'ri</b> kiriting:", json_encode($goToMainKeyboard));
                 }
                 break;
-            case "3":   // Asked
+            case "3":   // Answering
                 if (Inner::where('seria', '=', $request->input('message')['text'])->exists()) {
                     $inner = Inner::where('seria', '=', $request->input('message')['text'])->first();
                     $last_sent_message = $chat->last_sent_message;
                     $isBlocksMatch = $inner->outers->contains(function ($key) use ($last_sent_message){
-                        return $key->seria == $last_sent_message;
+                        return !strcasecmp($key->seria, $last_sent_message);
                     });
                     if ($isBlocksMatch) {
                         $telegram->sendButtons($chat->chat_id, "✅ Bu ichki va tashqi bloklar bir biriga mos keladi.", json_encode($buttons));

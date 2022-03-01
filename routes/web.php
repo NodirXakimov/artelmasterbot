@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Models\Outer;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -18,26 +19,12 @@ use App\Helpers\Telegram;
 */
 Route::post('/', [App\Http\Controllers\WebhookController::class, 'index']);
 
-Route::get('/', function (Telegram $telegram) {
-
-    $buttons = [
-        'keyboard' => [
-            [
-                [
-                    'text' => '✅ Bloklarning bir biriga mosligini tekshirish',
-                ]
-            ],
-            [
-                [
-                    'text' => "📑 Botdan foydalanish bo'yicha yo'riqnoma",
-                ]
-            ]
-        ],
-        'resize_keyboard' => true
-    ];
-
-    $sendMessage = $telegram->sendButtons(685039285, 'Logo of the company!', json_encode($buttons));
-
-});
-
 Route::post('/webhook', [App\Http\Controllers\WebhookController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function (){
+    Route::get('/', [AdminController::class, 'index']);
+});
