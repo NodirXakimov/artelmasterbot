@@ -29,7 +29,7 @@ class Telegram
 
     public function sendDocument($chat_id, $file, $reply_id = null)
     {
-        return $this->http::attach('document', Storage::get('public/'.$file), 'document.png')
+        return $this->http::attach('document', Storage::get('public/'.$file), 'document.jpg')
         ->post(self::URL.$this->bot.'/sendDocument', [
             'chat_id' => $chat_id,
             'reply_to_message_id' => $reply_id
@@ -43,6 +43,16 @@ class Telegram
             'text' => $message,
             'parse_mode' => 'html',
             'reply_markup' => $button
+        ]);
+    }
+
+    public function sendPhoto($chat_id, $photo, $reply_id = null)
+    {
+        return $this->http::attach('photo', Storage::get('public/'.$photo), 'photo.jpg')
+        ->post(self::URL.$this->bot.'/sendPhoto', [
+            'chat_id' => $chat_id,
+            'parse_mode' => 'html',
+            'reply_to_message_id' => $reply_id
         ]);
     }
 }

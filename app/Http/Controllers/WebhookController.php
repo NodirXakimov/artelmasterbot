@@ -19,7 +19,11 @@ class WebhookController extends Controller
                 [
                     [
                         'text' => '✅ Bloklarning bir biriga mosligini tekshirish',
-                        'callback_data' => '1'
+                    ]
+                ],
+                [
+                    [
+                        'text' => "📑 Botdan foydalanish bo'yicha yo'riqnoma",
                     ]
                 ]
             ],
@@ -40,12 +44,18 @@ class WebhookController extends Controller
             ['chat_id' => $chat_id],
             ['state' => 0]
         );
-        if($request->input('message')['text'] == "🔙 Bosh menyuga qaytish") {
-            $chat->state = 1;
-            $chat->save();
-            $telegram->sendButtons($chat->chat_id, "📎", json_encode($buttons));
-            return;
+        switch ($request->input('message')['text'])
+        {
+            case $goToMainKeyboard['keyboard'][0][0]['text']:
+                $chat->state = 1;
+                $chat->save();
+                $telegram->sendButtons($chat->chat_id, "📎", json_encode($buttons));
+                return;
+            case $buttons['keyboard'][1][0]['text']:
+                $telegram->sendPhoto($chat->chat_id, 'artel.jpg');
+                return;
         }
+
         switch ($chat->state)
         {
             case "0":   // Default
@@ -55,7 +65,7 @@ class WebhookController extends Controller
                 break;
             case "1":
                 if($request->input('message')['text'] == "✅ Bloklarning bir biriga mosligini tekshirish") {
-                    $telegram->sendButtons($chat->chat_id, 'Ichki blok seriya raqamining ilk 8 ta belgisini kiriting:', json_encode($goToMainKeyboard));
+                    $telegram->sendButtons($chat->chat_id, "<b>Tashqi</b> blok seriya raqamining ilk 8 ta belgisini kiriting:", json_encode($goToMainKeyboard));
                     $chat->state = 2;
                     $chat->save();
                 } else {
@@ -63,20 +73,20 @@ class WebhookController extends Controller
                 }
                 break;
             case "2":   // Requested
-                if (Inner::where('seria', '=', $request->input('message')['text'])->exists()) {
+                if (Outer::where('seria', '=', $request->input('message')['text'])->exists()) {
                     $chat->last_sent_message = $request->input('message')['text'];
                     $chat->state = '3';
                     $chat->save();
-                    $telegram->sendButtons($chat->chat_id, 'Tashqi blok seriya raqamining ilk 8 ta belgisini kiriting:', json_encode($goToMainKeyboard));
+                    $telegram->sendButtons($chat->chat_id, '<b>Ichki</b> blok seriya raqamining ilk 8 ta belgisini kiriting:', json_encode($goToMainKeyboard));
                 } else {
-                    $telegram->sendButtons($chat->chat_id, "⚠ Iltimos ichki blok seriya raqamining ilk 8 ta belgisini <b>to'g'ri</b> kiriting:", json_encode($goToMainKeyboard));
+                    $telegram->sendButtons($chat->chat_id, "⚠ Iltimos tashqi blok seriya raqamining ilk 8 ta belgisini <b>to'g'ri</b> kiriting:", json_encode($goToMainKeyboard));
                 }
                 break;
             case "3":   // Asked
-                if (Outer::where('seria', '=', $request->input('message')['text'])->exists()) {
-                    $outer = Outer::where('seria', '=', $request->input('message')['text'])->first();
+                if (Inner::where('seria', '=', $request->input('message')['text'])->exists()) {
+                    $inner = Inner::where('seria', '=', $request->input('message')['text'])->first();
                     $last_sent_message = $chat->last_sent_message;
-                    $isBlocksMatch = $outer->inners->contains(function ($key) use ($last_sent_message){
+                    $isBlocksMatch = $inner->outers->contains(function ($key) use ($last_sent_message){
                         return $key->seria == $last_sent_message;
                     });
                     if ($isBlocksMatch) {
@@ -84,8 +94,10 @@ class WebhookController extends Controller
                     } else {
                         $telegram->sendButtons($chat->chat_id, "⛔️Bu ichki va tashqi bloklar bir biriga mos kelmaydi.", json_encode($buttons));
                     }
+                    $chat->state = 1;
+                    $chat->save();
                 } else {
-                    $telegram->sendButtons($chat->chat_id, "⚠ Iltimos tashqi blok seriya raqamining ilk 8 ta belgisini <b>to'g'ri</b> kiriting:", json_encode($goToMainKeyboard));
+                    $telegram->sendButtons($chat->chat_id, "⚠ Iltimos ichki blok seriya raqamining ilk 8 ta belgisini <b>to'g'ri</b> kiriting:", json_encode($goToMainKeyboard));
                 }
                 break;
             default:

@@ -24,8 +24,12 @@ Route::get('/', function (Telegram $telegram) {
         'keyboard' => [
             [
                 [
-                    'text' => 'Bloklarning bir biriga mosligini tekshirish',
-                    'callback_data' => '1'
+                    'text' => '✅ Bloklarning bir biriga mosligini tekshirish',
+                ]
+            ],
+            [
+                [
+                    'text' => "📑 Botdan foydalanish bo'yicha yo'riqnoma",
                 ]
             ]
         ],
@@ -34,20 +38,6 @@ Route::get('/', function (Telegram $telegram) {
 
     $sendMessage = $telegram->sendButtons(685039285, 'Logo of the company!', json_encode($buttons));
 
-});
-Route::get('/test', function (){
-   $outer = Outer::find(1);
-   return $outer->inners;
-//   return $outer->inners->contains(function ($key, $value){
-//       return $key->seria == "111DAPAA";
-//   });
-});
-Route::get('/download', function (){
-   return response()->download(public_path('artel.jpg'));
-});
-
-Route::get('/artisan', function(){
-   phpinfo();
 });
 
 Route::post('/webhook', [App\Http\Controllers\WebhookController::class, 'index']);
