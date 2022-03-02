@@ -26,7 +26,12 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function (){
-    Route::get('/', [AdminController::class, 'index']);
+    Route::get('/', [AdminController::class, 'index'])->name('admin');
+    Route::get('/subscribers', [AdminController::class, 'subscribers'])->name('subscribers');
+    Route::get('/series', [AdminController::class, 'series'])->name('series');
 });
 
-Route::redirect('/', '/home');
+Route::redirect('/register', '/login');
+Route::get('/', function (){
+    return redirect()->route('login');
+});

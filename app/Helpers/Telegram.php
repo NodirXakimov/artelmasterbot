@@ -46,12 +46,13 @@ class Telegram
         ]);
     }
 
-    public function sendPhoto($chat_id, $photo, $reply_id = null)
+    public function sendPhoto($chat_id, $photo, $caption = null ,$reply_id = null)
     {
         return $this->http::attach('photo', Storage::get('public/'.$photo), 'photo.jpg')
         ->post(self::URL.$this->bot.'/sendPhoto', [
             'chat_id' => $chat_id,
             'parse_mode' => 'html',
+            'caption' => $caption,
             'reply_to_message_id' => $reply_id
         ]);
     }

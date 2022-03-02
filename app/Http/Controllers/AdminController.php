@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
+use App\Models\Outer;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -16,6 +17,24 @@ class AdminController extends Controller
     {
         $subscribers_count = Chat::all()->count();
         return view('admin.index', ['subscribers_count' => $subscribers_count]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     */
+    public function subscribers()
+    {
+        $subscribers = Chat::paginate();
+//        return response()->json($subscribers);
+        return view('admin.subscribers', ['subscribers' => $subscribers]);
+    }
+
+    public function series()
+    {
+        $outers = Outer::with(['inners'])->get();
+        return view('admin.series', ['outers' => $outers]);
     }
 
     /**

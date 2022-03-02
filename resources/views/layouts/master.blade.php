@@ -20,7 +20,7 @@
     <!-- Vendor CSS Files -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
+    @yield('additional_styles')
     <!-- Template Main CSS File -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
@@ -31,7 +31,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="{{ route('admin') }}" class="logo d-flex align-items-center">
             <img src="{{ asset('img/logo.png') }}" alt="">
             <span class="d-none d-lg-block">Artel Master</span>
         </a>
@@ -239,7 +239,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link " href="{{ route('admin') }}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -247,17 +247,17 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-robot"></i><span>Bots</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-robot"></i><span>Artel Master Helper Bot</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Artel Master Helper</span>
+                    <a href="{{ route('subscribers') }}">
+                        <i class="bi bi-circle"></i><span>Subscribers</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Second bot</span>
+                    <a href="{{ route('series') }}">
+                        <i class="bi bi-circle"></i><span>Binding of series</span>
                     </a>
                 </li>
             </ul>
@@ -285,21 +285,7 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Dashboard</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section dashboard">
-        <div class="row">
-            @yield('content')
-        </div>
-    </section>
+    @yield('content')
 
 </main><!-- End #main -->
 
@@ -317,7 +303,7 @@
 
 <!-- Vendor JS Files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+@yield('additional_scripts')
 <!-- Template Main JS File -->
 <script src="{{ asset('js/main.js') }}"></script>
 
