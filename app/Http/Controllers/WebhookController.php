@@ -94,7 +94,7 @@ degan javob olasiz😉";
         switch ($chat->state)
         {
             case "0":   // Default
-                $telegram->sendButtons($chat->chat_id, "🎉 Artel Master botga xush kelibsiz !!!", json_encode($buttons));
+                $telegram->sendButtons($chat->chat_id, "🎉 MIX Helper botga xush kelibsiz !!!", json_encode($buttons));
                 $chat->state = 1;
                 $chat->save();
                 break;
