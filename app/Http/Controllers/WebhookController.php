@@ -104,7 +104,7 @@ degan javob olasiz😉";
                     $chat->state = 2;
                     $chat->save();
                 } else {
-                    $telegram->sendButtons($chat->chat_id, "🧾 Ma'lumot olish uchun quyidagi tugmani bosing", json_encode($buttons));
+                    $telegram->sendButtons($chat->chat_id, "🧾 Ma'lumot olish uchun pastdagi <b>Yo'riqnoma</b> tugmasini bosing!", json_encode($buttons));
                 }
                 break;
             case "2":   // Requested with inner
