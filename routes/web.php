@@ -35,3 +35,9 @@ Route::redirect('/register', '/login');
 Route::get('/', function (){
     return redirect()->route('login');
 });
+
+Route::group(['prefix' => 'artisan', 'middleware' => 'auth'],function (){
+   Route::get('config:cache', function (){
+       Artisan::call('config:cache');
+   });
+});
