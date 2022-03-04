@@ -39,6 +39,9 @@ class WebhookController extends Controller
             ],
             'resize_keyboard' => true
         ];
+        if (empty($request->input('message'))){
+            return;
+        }
         $chat_id = (integer)$request->input('message')['chat']['id'];
         $chat = Chat::firstOrCreate(
             ['chat_id' => $chat_id],
