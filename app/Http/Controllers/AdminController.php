@@ -27,7 +27,7 @@ class AdminController extends Controller
      */
     public function subscribers()
     {
-        $subscribers = Chat::paginate();
+        $subscribers = Chat::all();
 //        return response()->json($subscribers);
         return view('admin.subscribers', ['subscribers' => $subscribers]);
     }
