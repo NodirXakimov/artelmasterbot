@@ -38,6 +38,20 @@ class AdminController extends Controller
         return view('admin.series', ['outers' => $outers]);
     }
 
+    public function statistics()
+    {
+        return Chat::all()
+//            ->pluck('created_at')
+            ->map(function ($item){
+                return [
+                    'id' => $item->id,
+                    'first_name' => $item->first_name,
+                    'created_at' => $item->created_at->format('d M Y')
+                ];
+            })->countBy('created_at');
+        return view('admin.statistics');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

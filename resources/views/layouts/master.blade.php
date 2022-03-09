@@ -260,6 +260,12 @@
                         <i class="bi bi-circle"></i><span>Binding of series</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('statistics') }}">
+                        <i class="bi bi-circle"></i><span>Statistics</span>
+                    </a>
+                </li>
+
             </ul>
         </li><!-- End Components Nav -->
 

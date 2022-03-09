@@ -65,30 +65,13 @@ class WebhookController extends Controller
                     $telegram->sendButtons($chat->chat_id, "📎", json_encode($buttons));
                     return;
                 case $buttons['keyboard'][1][0]['text']:
-                    $faq = "
-✅ <b>Bloklarning bir biriga mosligini tekshirish</b>
-menusini tanlang! Bot sizga -
-<b>Ichki blok seriya raqamining ilk 8 ta belgisini kiriting:</b>
-deb javob qaytaradi!";
+                    $faq = "✅ <b>Bloklarning bir biriga mosligini tekshirish</b>\n menusini tanlang! Bot sizga - \n<b>Ichki blok seriya raqamining ilk 8 ta belgisini kiriting:</b> \ndeb javob qaytaradi!";
                     $telegram->sendMessage($chat->chat_id, $faq);
                     $telegram->sendPhoto($chat->chat_id, 'example_photo_inner.jpg', 'Ichki qism seriya raqamidan , ramka bilan ajratilgan birinchi 8 ta belgini kiriting (111ABCDE)');
-                    $faq = "
-Bot sizga -
-<b>Tashqi blok seriya raqamining ilk 8 ta belgisini kiriting:</b>
-deb javob qaytaradi !";
+                    $faq = "Bot sizga - <b>Tashqi blok seriya raqamining ilk 8 ta belgisini kiriting:</b> deb javob qaytaradi !";
                     $telegram->sendMessage($chat->chat_id, $faq);
                     $telegram->sendPhoto($chat->chat_id, 'example_photo_outer.jpg', 'Tashqi qism seriya raqamidan , ramka bilan ajratilgan birinchi 8 ta belgini kiriting (113ABCDE)');
-                    $faq = "
-Agar siz kiritgan seriya raqamidagi bloklar bir biriga mos kelsa bot sizga -
-✅ <b>Bu ichki va tashqi bloklar bir biriga mos keladi.</b>
-deb javob qaytaradi!
-Agar siz kiritgan seriya raqamidagi bloklar bir biriga mos kelmasa bot sizga -
-⛔️<b>Bu ichki va tashqi bloklar bir biriga mos kelmaydi.</b>
-deb javob qaytaradi!
-Ma'lumotni to'gri kiriting! (shrift kattaligi ahamiyatsiz)
-Yoki botdan :
-⚠️ <b>Iltimos tashqi blok seriya raqamining ilk 8 ta belgisini to'g'ri kiriting:</b>
-degan javob olasiz😉";
+                    $faq = "Agar siz kiritgan seriya raqamidagi bloklar bir biriga mos kelsa bot sizga - \n✅ <b>Bu ichki va tashqi bloklar bir biriga mos keladi.</b> deb javob qaytaradi! Agar siz kiritgan seriya raqamidagi bloklar bir biriga mos kelmasa bot sizga - \n⛔️<b>Bu ichki va tashqi bloklar bir biriga mos kelmaydi.</b> deb javob qaytaradi! Ma'lumotni to'gri kiriting! (shrift kattaligi ahamiyatsiz) Yoki botdan : \n⚠️ <b>Iltimos tashqi blok seriya raqamining ilk 8 ta belgisini to'g'ri kiriting:</b> degan javob olasiz😉";
                     $telegram->sendMessage($chat->chat_id, $faq);
                     return;
             }
