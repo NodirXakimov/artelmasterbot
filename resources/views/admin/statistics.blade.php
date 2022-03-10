@@ -6,6 +6,7 @@
 
 @section('additional_scripts')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
 
 @section('content')
@@ -33,7 +34,7 @@
                         <div id="areaChart"></div>
 
                         <script>
-                            document.addEventListener("DOMContentLoaded", () => {
+                            document.addEventListener("DOMContentLoaded", async () => {
                                 const series = {
                                     "monthDataSeries1": {
                                         "prices": [
@@ -288,9 +289,19 @@
                                         ]
                                     },
                                 }
+
+                                await axios.get('/admin/statisticsData')
+                                    .then(function (response) {
+                                        series.monthDataSeries1.prices = Object.values(response.data)
+                                        series.monthDataSeries1.dates = Object.keys(response.data)
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error);
+                                    })
+
                                 new ApexCharts(document.querySelector("#areaChart"), {
                                     series: [{
-                                        name: "Joint new users",
+                                        name: "Joined new users",
                                         data: series.monthDataSeries1.prices
                                     }],
                                     chart: {

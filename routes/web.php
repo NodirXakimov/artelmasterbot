@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function (){
     Route::get('/subscribers', [AdminController::class, 'subscribers'])->name('subscribers');
     Route::get('/series', [AdminController::class, 'series'])->name('series');
     Route::get('/statistics', [AdminController::class, 'statistics'])->name('statistics');
+    Route::get('/statisticsData', [AdminController::class, 'statisticsData'])->name('statisticsData');
 });
 
 Route::redirect('/register', '/login');

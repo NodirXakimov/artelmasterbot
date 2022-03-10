@@ -40,8 +40,7 @@ class AdminController extends Controller
 
     public function statistics()
     {
-        return Chat::all()
-//            ->pluck('created_at')
+        $statisticsData = Chat::all()
             ->map(function ($item){
                 return [
                     'id' => $item->id,
@@ -49,7 +48,19 @@ class AdminController extends Controller
                     'created_at' => $item->created_at->format('d M Y')
                 ];
             })->countBy('created_at');
-        return view('admin.statistics');
+        return view('admin.statistics', compact('statisticsData'));
+    }
+
+    public function statisticsData()
+    {
+        return Chat::all()
+            ->map(function ($item){
+                return [
+                    'id' => $item->id,
+                    'first_name' => $item->first_name,
+                    'created_at' => $item->created_at->format('d M Y')
+                ];
+            })->countBy('created_at');
     }
 
     /**
