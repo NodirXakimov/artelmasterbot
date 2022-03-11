@@ -267,8 +267,15 @@
                 </li>
 
             </ul>
-        </li><!-- End Components Nav -->
-
+        </li><!-- End Bot Nav -->
+        @if(auth()->user()->isAdmin())
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('users') }}">
+                    <i class="bi bi-people"></i>
+                    <span>Users</span>
+                </a>
+            </li><!-- End Users Nav -->
+        @endif
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">

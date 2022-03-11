@@ -25,9 +25,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function (){
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/subscribers', [AdminController::class, 'subscribers'])->name('subscribers');
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
     Route::get('/series', [AdminController::class, 'series'])->name('series');
     Route::get('/statistics', [AdminController::class, 'statistics'])->name('statistics');
     Route::get('/statisticsData', [AdminController::class, 'statisticsData'])->name('statisticsData');
@@ -45,5 +46,5 @@ Route::group(['prefix' => 'artisan', 'middleware' => 'auth'],function (){
 });
 
 Route::get('test', function (){
-   return auth()->user()->role;
+   return auth()->user()->isAdmin();
 });
