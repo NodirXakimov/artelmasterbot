@@ -34,7 +34,9 @@ class AdminController extends Controller
 
     public function series()
     {
-        $outers = Outer::with(['inners'])->get();
+        $outers = Outer::with(['inners' => function($query) {
+            $query->select('seria');
+        }])->get();
         return view('admin.series', ['outers' => $outers]);
     }
 

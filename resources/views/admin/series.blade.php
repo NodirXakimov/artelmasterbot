@@ -7,11 +7,25 @@
 @section('additional_scripts')
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.show-inners').on('click', function (){
+                let inners = JSON.parse($(this).attr("data-inner"))
+                let innersText = "";
+                inners.forEach(function (value, key){
+                    innersText += `<li class="list-group-item">${value.seria}</li>`
+                })
+                $('#inners-list').html(innersText)
+                $('#outerOnModal').html($(this).attr("data-outer"))
+                $('#showInnerSeriesModal').modal('show');
+            });
+
+        });
+    </script>
 @endsection
 
 @section('content')
-
-
 
     <div class="pagetitle">
         <h1>AC series</h1>
@@ -46,7 +60,7 @@
                                 <td>{{ $outer->created_at }}</td>
                                 <td>{{ $outer->updated_at }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-primary btn-sm"><i class="bi bi-eye-fill"></i></button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm show-inners" data-outer="{{ $outer->seria }}" data-inner="{{ $outer->inners }}"><i class="bi bi-eye-fill"></i></button>
                                     <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil-square"></i></button>
                                     <button type="button" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
                                 </td>
@@ -58,5 +72,29 @@
             </div>
         </div>
     </section>
+    <!-- Start modals -->
+
+    <!-- Show inner series modal -->
+    <div class="modal fade" id="showInnerSeriesModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Inners of <b id="outerOnModal"></b></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-numbered" id="inners-list">
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+{{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End modals -->
 
 @endsection
