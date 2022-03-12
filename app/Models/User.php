@@ -54,4 +54,12 @@ class User extends Authenticatable
         else
             return false;
     }
+
+    public function isActiveUser(): bool
+    {
+        if (auth()->user()->is_active)
+            return true;
+        else
+            return false;
+    }
 }

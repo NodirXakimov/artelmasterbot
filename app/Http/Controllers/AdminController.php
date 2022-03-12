@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chat;
 use App\Models\Outer;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,12 @@ class AdminController extends Controller
         $subscribers = Chat::all();
 //        return response()->json($subscribers);
         return view('admin.subscribers', ['subscribers' => $subscribers]);
+    }
+
+    public function users()
+    {
+        $users = User::all();
+        return view('admin.users', ['users' => $users]);
     }
 
     public function series()
