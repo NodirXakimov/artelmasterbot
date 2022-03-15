@@ -25,7 +25,6 @@ class Handler extends ExceptionHandler
         $this->telegram = $telegram;
     }
 
-
     public function report(Throwable $e)
     {
         $data = [

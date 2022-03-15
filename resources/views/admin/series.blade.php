@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(function(){
-            $('.show-inners').on('click', function (){
+            $('#table-body').on('click', '.show-inners', function (){
                 let inners = JSON.parse($(this).attr("data-inner"))
                 let innersText = "";
                 inners.forEach(function (value, key){
@@ -51,14 +51,14 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="table-body">
                         @foreach($outers as $outer)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $outer->seria }}</td>
                                 <td><span class="badge bg-secondary">{{ $outer->inners->count() }}</span></td>
-                                <td>{{ $outer->created_at }}</td>
-                                <td>{{ $outer->updated_at }}</td>
+                                <td>{{ $outer->created_at->diffForHumans() }}</td>
+                                <td>{{ $outer->updated_at->diffForHumans() }}</td>
                                 <td>
                                     <button type="button" class="btn btn-outline-primary btn-sm show-inners" data-outer="{{ $outer->seria }}" data-inner="{{ $outer->inners }}"><i class="bi bi-eye-fill"></i></button>
                                     <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil-square"></i></button>
